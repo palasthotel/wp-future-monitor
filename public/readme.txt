@@ -5,7 +5,7 @@ Tags: dashboard, widget, planned posts, schedule visualization
 Requires at least: 4.0
 Tested up to: 7.1.2
 Requires PHP: 8.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,6 +44,10 @@ Open the post and update it without changing its date. WordPress then schedules 
 Only by publishing scheduled posts whose date has passed - which is what WordPress should have done.
 
 == Changelog ==
+
+= 1.0.4 =
+**Bug Fixes**
+* recognise every post scheduled for the same time in the dashboard widget (1c4584c)
 
 = 1.0.3 =
 **Bug Fixes**
