@@ -17,23 +17,22 @@ class Store {
 	 */
 	public function getScheduledPostIdsFromOptions(): array {
 
-		if ( $this->post_ids == NULL ) {
-			$cron = get_option( "cron" );
-
-			$filtered       = array_filter( $cron, function ( $items ) {
-				return isset( $items["publish_future_post"] );
-			} );
-			$mapped         = array_map( function ( $items ) {
-				$it = array_values( $items["publish_future_post"] )[0];
-				if ( isset( $it["args"] ) && is_array( $it["args"] ) ) {
-					return array_pop( $it["args"] );
+		if ( $this->post_ids === null ) {
+			// The cron array is [timestamp][hook][md5 of the args] => event, so posts
+			// scheduled for the same second share one hook entry - every event in it
+			// counts, not only the first.
+			$cron           = get_option( "cron" );
+			$this->post_ids = array();
+			foreach ( is_array( $cron ) ? $cron : array() as $hooks ) {
+				if ( ! is_array( $hooks ) || ! isset( $hooks["publish_future_post"] ) || ! is_array( $hooks["publish_future_post"] ) ) {
+					continue;
 				}
-
-				return NULL;
-			}, $filtered );
-			$this->post_ids = array_values( array_filter( $mapped, function ( $it ) {
-				return $it != NULL;
-			} ) );
+				foreach ( $hooks["publish_future_post"] as $event ) {
+					if ( isset( $event["args"] ) && is_array( $event["args"] ) && ! empty( $event["args"] ) ) {
+						$this->post_ids[] = (int) end( $event["args"] );
+					}
+				}
+			}
 		}
 
 		return $this->post_ids;
