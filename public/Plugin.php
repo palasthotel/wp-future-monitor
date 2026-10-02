@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Future Monitor
- * Plugin URI: https://github.com/palasthotel/future-monitor
+ * Plugin URI: https://github.com/palasthotel/wp-future-monitor
  * Description: Monitors the future of your system. For example planned posts...
  * Version: 1.0.4
  * Author: Palasthotel <webmaster@palasthotel.de>
