@@ -57,7 +57,7 @@ class DashboardWidget {
 				echo "🚨 ";
 			}
 			printf( "<a href='%s' target='_blank'>", esc_url( get_edit_post_link( get_the_ID() ) ) );
-			the_title();
+			echo esc_html( get_the_title() );
 			echo "</a>";
 			echo "<br/>";
 			echo "<span class='description'>";

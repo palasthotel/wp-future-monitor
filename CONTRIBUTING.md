@@ -55,6 +55,27 @@ That includes hardening. Blocking direct access to a file that is not part of th
 download is `chore:`, not `fix:` — nothing changes for anyone who installed the
 plugin.
 
+## Local setup
+
+There is nothing to build. wp-env runs without a configuration file and mounts the
+repository as the plugin; `Plugin.php` in the root is the development wrapper that loads
+`public/`:
+
+```sh
+npx @wordpress/env start      # http://localhost:8888, admin / password
+```
+
+To see the ⚠️ verdict, schedule a post and remove its core event - the plugin's hourly
+check is rescheduled on every admin request, so the dashboard shows ⚠️ rather than 🚨:
+
+```sh
+npx @wordpress/env run cli wp cron event delete publish_future_post
+```
+
+The main file `public/Plugin.php` must keep its name. WordPress identifies an installed
+plugin by `<directory>/<main file>` and stores that pair in `active_plugins`; renaming it
+deactivates the plugin on every site at the next update.
+
 ## Versions
 
 Never edit version numbers by hand. `version.txt`, `CHANGELOG.md`,
@@ -68,8 +89,9 @@ tested-up-to) are of course done by hand; just leave `Stable tag:` and the
 
 ## Checks
 
-Every PR runs `php -l` against PHP 8.0, 8.2, 8.3 and 8.4 and packs the plugin, so a
-broken `bin/pack.sh` surfaces in the pull request. The plugin declares
+Every PR runs `php -l` against PHP 8.0, 8.2, 8.3 and 8.4, packs the plugin and checks
+the payload (autoloader and translations present, no symlinks, no development wrapper),
+and checks that the version carriers agree. The plugin declares
 `Requires PHP: 8.0` — it uses typed and nullable properties — and
 `Requires at least: 4.0` (WordPress).
 

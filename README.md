@@ -55,16 +55,15 @@ repository-only.
 | `public/LICENSE` | GPL-3.0 text, shipped with the plugin |
 | `assets/` | media for the WordPress.org plugin page — not part of the download |
 | `Plugin.php` | DEV wrapper, loads `public/Plugin.php` when the repository is checked out into `wp-content/plugins/` |
-| `bin/` | release helper scripts |
 | `.github/workflows/` | CI/CD — see [.github/WORKFLOWS.md](.github/WORKFLOWS.md) |
 
 ### The translation symlinks
 
 `public/languages` keeps the `de_CH` and `de_CH_informal` files as symlinks to the
-`de_DE` files, so Swiss German does not have to be maintained twice. Both
-`bin/pack.sh` and the release resolve them with `rsync -rL`, because a symlink does
-not survive the zip wordpress.org builds — until 1.0.3 those four translations were
-silently missing from every download.
+`de_DE` files, so Swiss German does not have to be maintained twice. The shared pack
+script resolves them with `rsync -rL`, because a symlink does not survive the zip
+wordpress.org builds — until 1.0.3 those four translations were silently missing from
+every download.
 
 ## Releasing
 
@@ -83,11 +82,13 @@ the commit conventions in [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Building locally
 
 ```sh
-bash bin/pack.sh    # → future-monitor.zip
+SLUG=future-monitor bash ../github-workflows/wp-plugin/bin/pack.sh    # → future-monitor.zip
 ```
 
-Needs `composer`: the packed payload carries a `--no-dev` autoloader and drops the
-composer files.
+The script lives in [palasthotel/github-workflows](https://github.com/palasthotel/github-workflows),
+which has to be checked out next to this repository. It needs `composer`: the packed
+payload carries a `--no-dev` autoloader and drops the composer files. The result in
+`build/future-monitor/` is byte for byte what the release deploys.
 
 ## License
 
