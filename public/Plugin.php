@@ -4,12 +4,12 @@
  * Plugin URI: https://github.com/palasthotel/future-monitor
  * Description: Monitors the future of your system. For example planned posts...
  * Version: 1.0.3
- * Author: Palasthotel <rezeption@palasthotel.de>
+ * Author: Palasthotel <webmaster@palasthotel.de>
  * Author URI: https://palasthotel.de
  * Text Domain: future-monitor
  * Domain Path: /languages
  * Requires at least: 4.0
- * Tested up to: 7.0.2
+ * Tested up to: 7.1.2
  * Requires PHP: 8.0
  * License: GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
