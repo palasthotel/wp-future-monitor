@@ -3,7 +3,7 @@ Contributors: palasthotel, edwardbock, janaeggebrecht
 Donate link: https://palasthotel.de/
 Tags: dashboard, widget, planned posts, schedule visualization
 Requires at least: 4.0
-Tested up to: 7.1.2
+Tested up to: 7.1
 Requires PHP: 8.0
 Stable tag: 1.0.4
 License: GPL-3.0-or-later
